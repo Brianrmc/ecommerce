@@ -1,21 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { ProductService } from '../../data-access/products.service';
+import { Component, inject} from '@angular/core';
+import { ProductStateService } from '../../data-access/product-state.service';
+import { ProductsCardComponent } from '../../ui/products-card/products-card.component';
 
 @Component({
   selector: 'app-products-list',
-  imports: [],
+  imports: [ProductsCardComponent],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss',
-  providers: [ProductService]
+  providers: [ProductStateService]
 })
 export default class ProductsListComponent {
 
-  private productsService = inject(ProductService)
+  productsState = inject(ProductStateService)
 
-  constructor(){
-    this.productsService.getProducts().subscribe((products) => {
-      console.log(products)
-    })
+  changePage(){
+    const page = this.productsState.state.page() + 1;
+    this.productsState.changePage$.next(page);
   }
+
 
 }
