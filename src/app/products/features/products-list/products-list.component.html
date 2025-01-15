@@ -1,22 +1,26 @@
 <div class="mx-auto max-w-screen-xl">
-  @if (productsState.state.status() === "loading") {
-    <p>LOADING ...</p>
-  } @else {
-    <div class="flex justify-end my-6">
-      <button
-        type="button"
-        (click)="changePage()"
-        class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700
-        focus:outline-none dark:focus:ring-blue-800"
-      >
-        Cambiar Pagina
-      </button>
-    </div>
-    <div class="grid grid-cols-[repeat(4,300px)] gap-6">
-      @for (products of productsState.state().products; track products) {
-        <app-products-card class="block" [product]="products" />
-      }
-    </div>
+  @switch (productsState.state.status()) {
+    @case ("loading") {
+      <p>Loading ...</p>
+    }
+    @case ("error") {
+      <p>Hay un error, favor de contactar a soporte</p>
+    }
+    @default {
+      <div class="flex justify-end my-6">
+        <button
+          type="button"
+          (click)="changePage()"
+          class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Cambiar Pagina
+        </button>
+      </div>
+      <div class="grid grid-cols-[repeat(4,300px)] gap-6">
+        @for (products of productsState.state().products; track products) {
+          <app-products-card class="block" [product]="products" />
+        }
+      </div>
+    }
   }
 </div>
