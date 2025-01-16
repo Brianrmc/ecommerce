@@ -1,9 +1,15 @@
 export interface Product {
-  category: String;
-  description: String;
+  category: string;
+  description: string;
   id: number;
-  image: String;
+  image: string;
   price: number;
   rating: { rate: number; count: number};
-  title: String;
+  title: string;
+}
+
+
+export interface ProductItemCart {
+  product : Product;
+  quantity: number;
 }
